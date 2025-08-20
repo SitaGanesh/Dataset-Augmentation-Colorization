@@ -1,0 +1,82 @@
+# Configuration file for Image Colorization Project
+project:
+  name: "image_colorization_augmentation"
+  version: "1.0.0"
+  description: "Dataset Augmentation to Improve Colorization"
+
+# Data configuration
+data:
+  input_size: [256, 256]  # Height, Width
+  batch_size: 16
+  num_workers: 4
+  train_split: 0.8
+  val_split: 0.15
+  test_split: 0.05
+  
+  # Color space settings
+  color_space: "LAB"  # LAB, RGB, or HSV
+  normalize_input: true
+  normalize_output: true
+
+# Model configuration
+model:
+  architecture: "unet"  # unet, resnet_unet, or custom
+  backbone: "resnet34"  # resnet18, resnet34, resnet50
+  pretrained: true
+  input_channels: 1  # L channel
+  output_channels: 2  # a, b channels
+  
+  # U-Net specific parameters
+  unet:
+    encoder_depth: 5
+    decoder_channels: [256, 128, 64, 32, 16]
+    dropout: 0.2
+    activation: "relu"
+
+# Training configuration
+training:
+  epochs: 100
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  scheduler: "cosine"  # cosine, step, or plateau
+  patience: 10  # for early stopping
+  
+  # Loss function
+  loss_function: "mse"  # mse, l1, or perceptual
+  loss_weights:
+    mse: 1.0
+    perceptual: 0.1
+  
+  # Optimizer
+  optimizer: "adam"  # adam, sgd, or adamw
+  momentum: 0.9  # for SGD
+
+# Evaluation configuration
+evaluation:
+  metrics: ["psnr", "ssim", "lpips", "fid"]
+  save_predictions: true
+  num_samples_to_save: 50
+  
+# Logging configuration
+logging:
+  use_tensorboard: true
+  use_wandb: false
+  log_interval: 10  # batches
+  save_interval: 5   # epochs
+  
+  wandb:
+    project: "colorization"
+    entity: null
+
+# Hardware configuration
+device:
+  use_gpu: true
+  gpu_id: 0
+  mixed_precision: true  # for faster training
+
+# Paths
+paths:
+  data_root: "./data"
+  models_dir: "./models"
+  results_dir: "./results"
+  logs_dir: "./results/logs"

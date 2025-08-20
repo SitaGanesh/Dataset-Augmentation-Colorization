@@ -1,0 +1,149 @@
+# Data Augmentation Configuration
+augmentation:
+  enabled: true
+  probability: 0.8  # Probability of applying augmentation to each image
+  
+  # Geometric augmentations
+  geometric:
+    horizontal_flip:
+      enabled: true
+      probability: 0.5
+    
+    vertical_flip:
+      enabled: false
+      probability: 0.2
+    
+    rotation:
+      enabled: true
+      probability: 0.7
+      angle_range: [-15, 15]  # degrees
+    
+    random_crop:
+      enabled: true
+      probability: 0.6
+      crop_ratio: [0.8, 1.0]  # ratio of original size
+    
+    scale:
+      enabled: true
+      probability: 0.5
+      scale_range: [0.9, 1.1]
+    
+    translation:
+      enabled: true
+      probability: 0.4
+      translate_percent: [-0.1, 0.1]  # fraction of image size
+    
+    shear:
+      enabled: true
+      probability: 0.3
+      shear_range: [-10, 10]  # degrees
+
+  # Photometric augmentations
+  photometric:
+    brightness:
+      enabled: true
+      probability: 0.6
+      brightness_range: [-0.2, 0.2]  # additive
+    
+    contrast:
+      enabled: true
+      probability: 0.6
+      contrast_range: [0.8, 1.2]  # multiplicative
+    
+    saturation:
+      enabled: true
+      probability: 0.5
+      saturation_range: [0.8, 1.2]
+    
+    hue:
+      enabled: true
+      probability: 0.4
+      hue_range: [-0.1, 0.1]  # hue shift
+    
+    gamma:
+      enabled: true
+      probability: 0.4
+      gamma_range: [0.8, 1.2]
+    
+    noise:
+      enabled: true
+      probability: 0.3
+      noise_types: ["gaussian", "salt_pepper"]
+      gaussian_std: 0.01
+      salt_pepper_ratio: 0.05
+
+  # Advanced augmentations
+  advanced:
+    elastic_transform:
+      enabled: true
+      probability: 0.2
+      alpha: 120
+      sigma: 120 * 0.05
+    
+    grid_distortion:
+      enabled: true
+      probability: 0.2
+      num_steps: 5
+      distort_limit: 0.3
+    
+    optical_distortion:
+      enabled: true
+      probability: 0.2
+      distort_limit: 0.1
+      shift_limit: 0.1
+    
+    channel_shuffle:
+      enabled: false  # Not recommended for grayscale input
+      probability: 0.1
+    
+    coarse_dropout:
+      enabled: true
+      probability: 0.3
+      max_holes: 8
+      max_height: 32
+      max_width: 32
+
+  # Color-specific augmentations for target images
+  color_augmentation:
+    color_jitter:
+      enabled: true
+      probability: 0.5
+      brightness: 0.2
+      contrast: 0.2
+      saturation: 0.2
+      hue: 0.1
+    
+    grayscale:
+      enabled: false  # Don't convert target to grayscale
+      probability: 0.0
+    
+    solarization:
+      enabled: true
+      probability: 0.1
+      threshold: 128
+
+# Augmentation strategies
+strategies:
+  light:
+    geometric_prob: 0.4
+    photometric_prob: 0.3
+    advanced_prob: 0.1
+  
+  medium:
+    geometric_prob: 0.6
+    photometric_prob: 0.5
+    advanced_prob: 0.2
+  
+  heavy:
+    geometric_prob: 0.8
+    photometric_prob: 0.7
+    advanced_prob: 0.4
+
+# Current strategy
+current_strategy: "medium"
+
+# Augmentation validation
+validation:
+  preview_samples: 10  # Number of augmented samples to preview
+  save_preview: true
+  preview_path: "./results/augmentation_preview"
