@@ -8,9 +8,6 @@ venv/
 env/
 .venv/
 
-# # Jupyter Notebook checkpoints
-# .ipynb_checkpoints/
-
 # # Dataset folders (optional - usually large binary files)
 data/processed/
 data/augmented/
@@ -23,6 +20,19 @@ models/
 results/
 notebooks/models/
 notebooks/results/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Config temporary files
+config/no_aug_config.yaml
+config/temp_aug_config.yaml
+config/.ipynb_checkpoints/
+
+# Source checkpoints
+src/.ipynb_checkpoints/
+
 
 # Logs and temp files
 *.log
