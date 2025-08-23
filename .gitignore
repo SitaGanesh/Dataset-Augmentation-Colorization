@@ -12,13 +12,17 @@ env/
 # .ipynb_checkpoints/
 
 # # Dataset folders (optional - usually large binary files)
-# data/raw/
-# data/processed/
-# data/augmented/
+data/processed/
+data/augmented/
+data/augmented_samples/
+data/raw/train/
+data/raw/test/
 
-# # Models and results (large binaries)
-# models/
-# results/
+# Models and results (large binaries)
+models/
+results/
+notebooks/models/
+notebooks/results/
 
 # Logs and temp files
 *.log
