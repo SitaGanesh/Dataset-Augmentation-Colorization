@@ -1,19 +1,26 @@
+# src/data_augmentation.py
 """
 Data augmentation module for image colorization project.
 Implements various augmentation techniques to improve model robustness.
 """
 
-import cv2
+import os
+import sys
+import random
+import logging
 import numpy as np
+import cv2
 import torch
 from torch.utils.data import Dataset
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
-import yaml
-import random
-from typing import Dict, Any, Tuple, List
-import logging
+import matplotlib.pyplot as plt
 from PIL import Image
+from skimage import color
+import albumentations as A
+from typing import List, Tuple, Optional
+import yaml
+from tqdm import tqdm
+import albumentations as A
+
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -145,42 +152,40 @@ class AugmentedColorDataset(Dataset):
         
         return augs
     
-    def _get_photometric_augmentations(self, config: Dict[str, Any]) -> List:
-        """Get photometric augmentation transforms."""
+    def _get_photometric_augmentations(self, config):
+        """Get photometric augmentations."""
         augs = []
         
-        if config['brightness']['enabled']:
-            augs.append(A.RandomBrightness(
-                limit=config['brightness']['brightness_range'],
-                p=config['brightness']['probability']
+        # Use ColorJitter instead of RandomBrightness
+        if config['brightness_contrast']['enabled']:
+            augs.append(A.ColorJitter(
+                brightness=config['brightness_contrast']['brightness_limit'],
+                contrast=config['brightness_contrast']['contrast_limit'],
+                p=config['brightness_contrast']['probability']
             ))
         
-        if config['contrast']['enabled']:
-            augs.append(A.RandomContrast(
-                limit=config['contrast']['contrast_range'],
-                p=config['contrast']['probability']
+        if config['hue_saturation']['enabled']:
+            augs.append(A.HueSaturationValue(
+                hue_shift_limit=config['hue_saturation']['hue_shift_limit'],
+                sat_shift_limit=config['hue_saturation']['sat_shift_limit'],
+                val_shift_limit=config['hue_saturation']['val_shift_limit'],
+                p=config['hue_saturation']['probability']
             ))
         
-        if config['gamma']['enabled']:
+        if config['gamma_transform']['enabled']:
             augs.append(A.RandomGamma(
-                gamma_limit=config['gamma']['gamma_range'],
-                p=config['gamma']['probability']
+                gamma_limit=config['gamma_transform']['gamma_limit'],
+                p=config['gamma_transform']['probability']
             ))
         
-        if config['noise']['enabled']:
-            if 'gaussian' in config['noise']['noise_types']:
-                augs.append(A.GaussNoise(
-                    var_limit=(0, config['noise']['gaussian_std'] * 255),
-                    p=config['noise']['probability'] / len(config['noise']['noise_types'])
-                ))
-            
-            if 'salt_pepper' in config['noise']['noise_types']:
-                augs.append(A.OneOf([
-                    A.ISONoise(p=0.5),
-                    A.MultiplicativeNoise(p=0.5)
-                ], p=config['noise']['probability'] / len(config['noise']['noise_types'])))
+        if config['gaussian_noise']['enabled']:
+            augs.append(A.GaussNoise(
+                var_limit=config['gaussian_noise']['var_limit'],
+                p=config['gaussian_noise']['probability']
+            ))
         
         return augs
+
     
     def _get_advanced_augmentations(self, config: Dict[str, Any]) -> List:
         """Get advanced augmentation transforms."""

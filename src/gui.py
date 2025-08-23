@@ -7,6 +7,7 @@ import os
 import logging
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
+import yaml
 
 import customtkinter as ctk
 import torch
@@ -50,14 +51,32 @@ class ColorizationGUI:
         logger.info("GUI initialized successfully")
 
     def load_config(self):
-        """Load configuration file."""
+        """Load configuration file from project root."""
+        cwd = os.getcwd()
+        project_root = os.path.dirname(cwd) if cwd.endswith("notebooks") else cwd
+
+        config_path = os.path.join(project_root, "config", "config.yaml")
         try:
-            import yaml
-            with open(self.config_path, "r") as f:
+            with open(config_path, "r") as f:
                 self.config = yaml.safe_load(f)
-        except Exception:
-            logger.warning("Config file not found or invalid. Using default settings.")
-            self.config = {"data": {"input_size": [256, 256]}, "paths": {"models_dir": "./models"}}
+            logger.info(f"Loaded config from {config_path}")
+        except Exception as e:
+            logger.warning(f"Config file not found at {config_path}: {e}. Using defaults.")
+            self.config = {}
+
+        # Ensure data and paths sections exist
+        self.config.setdefault("data", {})
+        self.config["data"].setdefault("input_size", [256, 256])
+
+        self.config.setdefault("paths", {})
+        # Always set absolute models_dir and results_dir
+        self.config["paths"]["models_dir"] = os.path.join(project_root, "models")
+        self.config["paths"]["results_dir"] = os.path.join(project_root, "results")
+
+        # Store for later use
+        self.config_path = config_path
+
+
 
     def setup_gui(self):
         """Setup the main GUI layout."""

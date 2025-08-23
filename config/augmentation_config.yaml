@@ -147,3 +147,117 @@ validation:
   preview_samples: 10  # Number of augmented samples to preview
   save_preview: true
   preview_path: "./results/augmentation_preview"
+
+# Augmentation Configuration
+current_strategy: "medium"
+
+augmentation:
+  enabled: true
+  probability: 0.8
+
+strategies:
+  light:
+    geometric_prob: 0.3
+    photometric_prob: 0.2
+    advanced_prob: 0.1
+  
+  medium:
+    geometric_prob: 0.5
+    photometric_prob: 0.4
+    advanced_prob: 0.2
+  
+  heavy:
+    geometric_prob: 0.7
+    photometric_prob: 0.6
+    advanced_prob: 0.3
+
+augmentation:
+  enabled: true
+  probability: 0.8
+  
+  geometric:
+    horizontal_flip:
+      enabled: true
+      probability: 0.5
+    
+    vertical_flip:
+      enabled: false
+      probability: 0.2
+    
+    rotation:
+      enabled: true
+      probability: 0.4
+      limit_degrees: 15
+    
+    random_scale:
+      enabled: true
+      probability: 0.3
+      scale_limit: 0.1
+    
+    shift_scale_rotate:
+      enabled: true
+      probability: 0.3
+      shift_limit: 0.05
+      scale_limit: 0.05
+      rotate_limit: 10
+  
+  photometric:
+    brightness_contrast:
+      enabled: true
+      probability: 0.4
+      brightness_limit: 0.2
+      contrast_limit: 0.2
+    
+    hue_saturation:
+      enabled: true
+      probability: 0.3
+      hue_shift_limit: 20
+      sat_shift_limit: 30
+      val_shift_limit: 20
+    
+    gamma_transform:
+      enabled: true
+      probability: 0.2
+      gamma_limit: [80, 120]
+    
+    random_fog:
+      enabled: false
+      probability: 0.1
+      fog_coef_lower: 0.3
+      fog_coef_upper: 1.0
+      alpha_coef: 0.08
+    
+    gaussian_noise:
+      enabled: true
+      probability: 0.2
+      var_limit: [10.0, 50.0]
+  
+  advanced:
+    elastic_transform:
+      enabled: true
+      probability: 0.1
+      alpha: 120
+      sigma: 6.0
+      alpha_affine: 50
+    
+    grid_distortion:
+      enabled: true
+      probability: 0.1
+      num_steps: 5
+      distort_limit: 0.05
+    
+    optical_distortion:
+      enabled: true
+      probability: 0.1
+      distort_limit: 0.05
+      shift_limit: 0.05
+    
+    coarse_dropout:
+      enabled: true
+      probability: 0.2
+      max_holes: 8
+      max_height: 20
+      max_width: 20
+      min_holes: 1
+      min_height: 8
+      min_width: 8
