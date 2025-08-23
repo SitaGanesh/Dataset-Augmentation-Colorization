@@ -378,6 +378,67 @@ strategies:
 
 ***
 
+## Images Walkthrough
+
+1. Image Analysis
+
+![1ImageAnalysis](https://github.com/user-attachments/assets/d41af36b-80de-421d-a3a3-67772f1e51b2)
+
+2. Image Properties
+
+![2ImageProperties](https://github.com/user-attachments/assets/9bf6b21a-9261-41c9-923d-c6cdafca8d32)
+
+3. Sample Images Visualization
+
+![3SampleImageVisualization](https://github.com/user-attachments/assets/0a1556ed-b833-4c9b-a56f-46a799715cbb)
+
+4. Color distributions
+
+![4colordistribution](https://github.com/user-attachments/assets/aff7498b-11e1-4027-96cb-efe55fdc2066)
+
+![5colordistribution](https://github.com/user-attachments/assets/1c2e4971-abc8-426e-992e-24fea6889c05)
+
+
+5. Raw image to gray scale image
+
+![6rawtograyscaleImage](https://github.com/user-attachments/assets/849b6b6f-d2f1-4c15-8fd1-3c3a2a740fdb)
+
+6. Lab Space Conversation
+
+![7labspaceConversion](https://github.com/user-attachments/assets/c98b4b42-1bca-42b3-9f59-66023605c923)
+
+7. Base line model
+
+![8baselinemodel](https://github.com/user-attachments/assets/a5e56c53-6af7-41bc-9939-656239929eb1)
+
+8. Sample Results
+
+![9sampleresults](https://github.com/user-attachments/assets/56be75f1-6c0e-4e9a-9d74-a173a1793717)
+
+9. Baseline training model summary: the performance
+
+![10summary](https://github.com/user-attachments/assets/bd93c567-fe9f-4e50-9f14-1276e2caa65a)
+
+10. Augumented Curve
+
+![11Augmentedcurv](https://github.com/user-attachments/assets/739ba5a0-bcd1-41e4-b734-3aafd31daae3)
+
+11. Augumentation Results
+
+![12augmentationresults](https://github.com/user-attachments/assets/56cdf961-4830-41b3-b612-44ada6b63ca2)
+
+12. Augmentation Performance
+
+![13augumentResuts](https://github.com/user-attachments/assets/86cd4dda-014e-4792-abdf-a7a014517c90)
+
+
+13. GUI:
+
+![14GUI](https://github.com/user-attachments/assets/142fae0b-d348-4eb7-8165-43eed1da82da)
+
+
+***
+
 ## 🚨 Troubleshooting
 
 ### Common Issues \& Solutions
