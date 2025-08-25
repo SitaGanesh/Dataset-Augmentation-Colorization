@@ -41,8 +41,8 @@ This project demonstrates how **data augmentation** can significantly improve im
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/image-colorization-augmentation.git
-cd image-colorization-augmentation
+git clone https://github.com/SitaGanesh/Dataset-Augmentation-Colorization.git
+cd Dataset-Augmentation-Colorization
 
 # Create virtual environment
 python -m venv venv
@@ -104,7 +104,7 @@ jupyter notebook
 ## 📁 Project Structure
 
 ```
-colorization_project/
+Dataset-Augmentation-Colorization/
 │
 ├── data/                          # Image data pipeline
 │   ├── raw/                       # YOUR downloaded color photos
